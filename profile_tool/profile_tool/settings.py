@@ -25,7 +25,7 @@ SECRET_KEY = '=41hlyr1&sv#slz(le=e8(fn*3js4k_(*pc**1d9_vpbzylx@b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
@@ -54,7 +54,7 @@ ROOT_URLCONF = 'profile_tool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
