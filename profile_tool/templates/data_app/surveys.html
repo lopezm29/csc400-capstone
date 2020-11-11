@@ -1,0 +1,76 @@
+{% extends 'data_app/wrapper.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block container %}
+<div class="container">
+
+    <div class="row p-3">
+        <div class="col-md-6 col-xs-6">
+            <h4 class="text-light">Survey History for {{ beach.name }}</h4>
+            <input type="hidden" id="beach_id" value="{{ beach.id }}">
+        </div>
+        <!-- <div class="col-md-6 col-xs-6 text-right">
+            <button class="btn btn-secondary">Edit Survey Instance</button>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ beach.name }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card p-5">
+                <div class="row">
+                    <div class="col">
+                        <table id="survey_table" class="table">
+                
+                        </table>
+                    </div>
+                </div>
+
+                <div id="survey_form" class="row" hidden>
+                    <div class="col">
+                        <form class="form-inline w-100">
+                            <div class="form-group">
+                                <input type="date" id="start_date" class="form-control">
+                                <input type="text" id="elevation_control" class="form-control">
+                                <input type="text" id="mhhw" class="form-control">
+                                <input type="text" id="mllw" class="form-control">
+
+                                <button class="btn btn-success ml-1 mr-1" onclick="add_survey()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_survey_form()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row pt-5">
+                    <div class="col">
+                        <button class="btn btn-success" onclick="show_survey_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'javascript/data_app/surveys.js' %}"></script>
+{% endblock %}

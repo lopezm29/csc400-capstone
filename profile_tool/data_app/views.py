@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import *
+from django.core import serializers
+from .services import *
 
 # Create your views here.
 '''
@@ -8,49 +9,120 @@ from .models import *
 index page
 '''
 def beaches(request):
-    context = {
-        'beaches':get_beaches_table()
-    }
-    return render(request, 'beaches.html', context)
+    return render(request, 'data_app/beaches.html')
 
 
 '''
-@name survey
+@name surveys
 index page
 '''
-def surveys(request):
+def surveys(request, beach_id):
     context = {
-        'surveys':get_surveys_table(request.POST['beach_id'])
+        'beach' : Beach.objects.filter(id=beach_id).get()
     }
-    
-    return render(request, 'survey.html', context)
+    return render(request, 'data_app/surveys.html', context)
 
 
 '''
-@name profile
+@name profiles
 index page
 '''
-def profile(request):
+def profiles(request, beach_id, survey_id):
     context = {
-        'profiles':get_profiles_table(request.POST['survey_id'])
+        'beach' : Beach.objects.filter(id=beach_id).get(),
+        'survey': Survey.objects.filter(id=survey_id).get()
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'data_app/profiles.html', context)
 
 
 '''
-@name station
+@name stations
 index page
 '''
-def station(request):
+def stations(request, beach_id, survey_id, profile_id):
     context = {
-        'stations':get_stations_table(request.POST['profile_id'])
+        'beach' : Beach.objects.filter(id=beach_id).get(),
+        'survey': Survey.objects.filter(id=survey_id).get(),
+        'profile': Profile.objects.filter(id=profile_id).get()
     }
-    return render(request, 'station.html', context)
+    return render(request, 'data_app/stations.html', context)
 
 
 ###############
 #ajax requests#
 ###############
+'''
+@name populate_beach_table
+return dict of beach info
+'''
+def populate_beach_table(request):
+    beaches = {}
+    try:
+        beaches = package_queryset(get_beaches_table())
+        # beaches = serializers.serialize('json', beaches)
+        result = True
+    except:
+        result = False
+
+    return JsonResponse({'result':result, 'beaches':beaches})
+
+
+'''
+@name add_beach
+add beach data
+return updated dict of beach info
+'''
+def add_beach(request):
+    try:
+        beach = Beach()
+        beach.name=request.POST['name']
+        beach.save()
+        result = True
+    except:
+        result = False
+
+    beaches = package_queryset(get_beaches_table())
+
+    return JsonResponse({'result':result, 'beaches':beaches})
+
+
+'''
+@name edit_beach
+edit beach data
+return updated dict of beach info
+'''
+def edit_beach(request):
+    try:
+        beach = Beach.objects.get(id=int(request.POST['id']))
+        beach.name=request.POST['name']
+        beach.save()
+        result = True
+    except:
+        result = False
+
+    beaches = package_queryset(get_beaches_table())
+
+    return JsonResponse({'result':result, 'beaches':beaches})
+
+
+'''
+@name delete_beach
+delete beach data
+return updated dict of beach info
+'''
+def delete_beach(request):
+    try:
+        beach = Beach.objects.get(id=int(request.POST['id']))
+        beach.delete()
+        result = True
+    except:
+        result = False
+
+    beaches = package_queryset(get_beaches_table())
+
+    return JsonResponse({'result':result, 'beaches':beaches})
+
+
 '''
 @name update_beach
 update beach data
@@ -58,16 +130,65 @@ return updated dict of beach info
 '''
 def update_beach(request):
     try:
-        beach = Beach.objects.get(id=request.POST['id'])
+        beach = Beach.objects.get(id=int(request.POST['id']))
         beach.name=request.POST['name']
         beach.save()
         result = True
     except:
         result = False
 
-    beaches = get_beaches_table()
+    beaches = package_queryset(get_beaches_table())
 
     return JsonResponse({'result':result, 'beaches':beaches})
+
+
+'''
+@name populate_survey_table
+return dict of beach info
+'''
+def populate_survey_table(request):
+    surveys = {}
+    try:
+        surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+        result = True
+    except:
+        result = False
+
+    return JsonResponse({'result':result, 'surveys':surveys})
+
+
+'''
+@name add_survey
+add survey data
+return updated dict of survey info
+'''
+def add_survey(request):
+    try:
+        beach = Beach.objects.get(id=int(request.POST['beach_id']))
+
+        survey = Survey()
+        print(request.POST['start_date'])
+        survey.start_date=request.POST['start_date']
+        if '' != request.POST['elevation_control']:
+            survey.elevation_control = request.POST['elevation_control']
+        if '' != request.POST['mhhw']:
+            survey.mhhw = request.POST['mhhw']
+        if '' != request.POST['mllw']:
+            survey.mllw = request.POST['mllw']
+        survey.save()
+
+        mapper = Beachsurveymap()
+        mapper.beach = beach
+        mapper.survey = survey
+        mapper.save()
+
+        result = True
+    except:
+        result = False
+
+    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+    
+    return JsonResponse({'result':result, 'surveys':surveys})
 
 
 '''
@@ -77,8 +198,9 @@ return updated dict of survey info
 '''
 def update_survey(request):
     try:
-        survey = Survey.objects.get(id=request.POST['id'])
-        survey.name=request.POST['name']
+        survey = Survey.objects.get(id=int(request.POST['id']))
+        survey.start_date=request.POST['start_date']
+        survey.elevation_control=request.POST['elevation_control']
         survey.mhhw=request.POST['mhhw']
         survey.mllw=request.POST['mllw']
         survey.save()
@@ -86,9 +208,53 @@ def update_survey(request):
     except:
         result = False
 
-    surveys = get_surveys_table(request.POST['beach_id'])
+    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
     
     return JsonResponse({'result':result, 'surveys':surveys})
+
+
+'''
+@name populate_profile_table
+return dict of beach info
+'''
+def populate_profile_table(request):
+    profiles = {}
+    try:
+        profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+        result = True
+    except:
+        result = False
+
+    return JsonResponse({'result':result, 'profiles':profiles})
+
+
+'''
+@name add_profile
+add profile data
+return updated dict of profile info
+'''
+def add_profile(request):
+    try:
+        survey = Survey.objects.get(id=int(request.POST['survey_id']))
+
+        profile = Profile()
+        profile.section=request.POST['section']
+        # profile.width=request.POST['width']
+        # profile.volume=request.POST['volume']
+        profile.save()
+
+        mapper = Surveyprofilemap()
+        mapper.survey = survey
+        mapper.profile = profile
+        mapper.save()
+
+        result = True
+    except:
+        result = False
+    
+    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+
+    return JsonResponse({'result':result, 'profiles':profiles})
 
 
 '''
@@ -98,19 +264,55 @@ return updated dict of profile info
 '''
 def update_profile(request):
     try:
-        profile = Profile.objects.get(id=request.POST['id'])
+        profile = Profile.objects.get(id=int(request.POST['id']))
         profile.section=request.POST['section']
         profile.elevation_control=request.POST['elevation_control']
-        profile.width=request.POST['width']
-        profile.volume=request.POST['volume']
+        # profile.width=request.POST['width']
+        # profile.volume=request.POST['volume']
         profile.save()
         result = True
     except:
         result = False
     
-    profiles = get_profiles_table(int(request.POST['survey_id']))
+    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
 
     return JsonResponse({'result':result, 'profiles':profiles})
+
+
+'''
+@name populate_station_table
+return dict of beach info
+'''
+def populate_station_table(request):
+    stations = {}
+    try:
+        stations = package_queryset(get_stations_table(request.POST['profile_id']))
+        result = True
+    except:
+        result = False
+
+    return JsonResponse({'result':result, 'profiles':stations})
+
+
+'''
+@name add_station
+add station data
+return updated dict of station info
+'''
+def add_station(request):
+    try:
+        station = Station.objects.get(id=int(request.POST['id']))
+        station.distance=request.POST['distance']
+        station.z=request.POST['z']
+        station.comment=request.POST['comment']
+        station.save()
+        result = True
+    except:
+        result = False
+    
+    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
+
+    return JsonResponse({'result':result, 'stations':stations})
 
 
 '''
@@ -120,7 +322,7 @@ return updated dict of station info
 '''
 def update_station(request):
     try:
-        station = Station.objects.get(id=request.POST['id'])
+        station = Station.objects.get(id=int(request.POST['id']))
         station.distance=request.POST['distance']
         station.z=request.POST['z']
         station.comment=request.POST['comment']
@@ -129,70 +331,8 @@ def update_station(request):
     except:
         result = False
     
-    stations = get_stations_table(request.POST['profile_id'])
+    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
 
     return JsonResponse({'result':result, 'stations':stations})
 
 
-###################
-#service functions#
-###################
-'''
-@name get_beach_table
-return dict of beach info
-'''
-def get_beaches_table():
-    return Beach.objects.values()
-
-
-'''
-@name get_survey_table
-return dict of survey info
-'''
-def get_surveys_table(beach_id):
-    surveys = Beachsurveymap.objects.filter(
-        beach=beach_id
-    ).annotate(
-        'survey__id',
-        'survey__name',
-        'survey__mhhw',
-        'survey__mllw',
-    ).values()
-    
-    return surveys
-
-
-'''
-@name get_profile_table
-return dict of profile info
-'''
-def get_profiles_table(survey_id):
-    profiles = Surveyprofilemap.objects.filter(
-        survey=survey_id
-    ).annotate(
-        'profile__id',
-        'profile__section',
-        'profile__elevation_control',
-        'profile__width',
-        'profile__volume',
-    ).values()
-
-    return profiles
-
-
-'''
-@name get_station_table
-return dict of station info
-'''
-def get_stations_table(profile_id):
-    station = Profilestationmap.objects.filter(
-        profile=profile_id
-    ).annotate(
-        'station__id',
-        'station__number',
-        'station__distance',
-        'station__z',
-        'station__comment',
-    ).values()
-
-    return stations

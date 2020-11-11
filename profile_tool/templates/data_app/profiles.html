@@ -1,0 +1,82 @@
+{% extends 'data_app/wrapper.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block container %}
+<div class="container">
+
+    <div class="row p-3">
+        <div class="col-md-6 col-xs-6">
+            <h4 class="text-light">Profile History for {{ beach.name }}</h4>
+            <h5 class="text-light">Start Date: {{survey.start_date}}</h5>
+            <input type="hidden" id="beach_id" value="{{ beach.id }}">
+            <input type="hidden" id="survey_id" value="{{ survey.id }}">
+        </div>
+        <!-- <div class="col-md-6 col-xs-6 text-right">
+            <button class="btn btn-secondary">Edit Survey Instance</button>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/surveys/{{ beach.id }}">{{ beach.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ survey.start_date }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                Placeholder for 3d Plotly chart
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card p-5">
+                <div class="row">
+                    <div class="col">
+                        <table id="profile_table">
+                
+                        </table>
+                    </div>
+                </div>
+
+                <div id="profile_form" class="row" hidden>
+                    <div class="col">
+                        <form class="form-inline w-100">
+                            <div class="form-group">
+                                <input type="text" id="section" class="form-control">
+
+                                <button class="btn btn-success ml-1 mr-1" onclick="add_profile()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_profile_form()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="row pt-5">
+                    <div class="col">
+                        <button class="btn btn-success" onclick="show_profile_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'javascript/data_app/profiles.js' %}"></script>
+{% endblock %}
