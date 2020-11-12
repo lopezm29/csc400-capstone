@@ -186,7 +186,7 @@ function delete_beach(id)
         },
         beforeSend: function()
         {
-            show_loading_modal();
+            // show_loading_modal();
             table.clear();
         },
         success: function(data)
@@ -202,16 +202,18 @@ function delete_beach(id)
                 table.draw();
 
                 bind_row_select(table);
+                // $('#loading_modal').modal('hide');
             }
-            console.log("ready to hide");
-            hide_loading_modal();
+            // console.log("ready to hide");
+            // $('#loading_modal').modal('hide');
+            // console.log("hidden?");
         },
         error: function(error_data)
         {
             console.log("error");
             console.log(error_data);
 
-            hide_loading_modal();
+            // $('#loading_modal').modal('hide');
         }
     });
 }

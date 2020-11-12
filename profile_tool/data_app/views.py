@@ -124,25 +124,6 @@ def delete_beach(request):
 
 
 '''
-@name update_beach
-update beach data
-return updated dict of beach info
-'''
-def update_beach(request):
-    try:
-        beach = Beach.objects.get(id=int(request.POST['id']))
-        beach.name=request.POST['name']
-        beach.save()
-        result = True
-    except:
-        result = False
-
-    beaches = package_queryset(get_beaches_table())
-
-    return JsonResponse({'result':result, 'beaches':beaches})
-
-
-'''
 @name populate_survey_table
 return dict of beach info
 '''
@@ -163,24 +144,45 @@ add survey data
 return updated dict of survey info
 '''
 def add_survey(request):
+    # try:
+    beach = Beach.objects.get(id=int(request.POST['beach_id']))
+    survey = Survey()
+    survey.start_date=request.POST['start_date']
+    if '' != request.POST['elevation_control']:
+        survey.elevation_control = request.POST['elevation_control']
+    if '' != request.POST['mhhw']:
+        survey.mhhw = request.POST['mhhw']
+    if '' != request.POST['mllw']:
+        survey.mllw = request.POST['mllw']
+    survey.save()
+
+    mapper = Beachsurveymap()
+    mapper.beach = beach
+    mapper.survey = survey
+    mapper.save()
+
+    result = True
+    # except:
+        # result = False
+
+    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+    
+    return JsonResponse({'result':result, 'surveys':surveys})
+
+
+'''
+@name edit_survey
+edit survey data
+return updated dict of survey info
+'''
+def edit_survey(request):
     try:
-        beach = Beach.objects.get(id=int(request.POST['beach_id']))
-
-        survey = Survey()
-        print(request.POST['start_date'])
+        survey = Survey.objects.get(id=int(request.POST['survey_id']))
         survey.start_date=request.POST['start_date']
-        if '' != request.POST['elevation_control']:
-            survey.elevation_control = request.POST['elevation_control']
-        if '' != request.POST['mhhw']:
-            survey.mhhw = request.POST['mhhw']
-        if '' != request.POST['mllw']:
-            survey.mllw = request.POST['mllw']
+        survey.elevation_control = request.POST['elevation_control']
+        survey.mhhw = request.POST['mhhw']
+        survey.mllw = request.POST['mllw']
         survey.save()
-
-        mapper = Beachsurveymap()
-        mapper.beach = beach
-        mapper.survey = survey
-        mapper.save()
 
         result = True
     except:
@@ -192,24 +194,20 @@ def add_survey(request):
 
 
 '''
-@name update_survey
-update survey data
-return updated dict of survey info
+@name delete_survey
+delete survey data
+return updated dict of beach info
 '''
-def update_survey(request):
+def delete_survey(request):
     try:
         survey = Survey.objects.get(id=int(request.POST['id']))
-        survey.start_date=request.POST['start_date']
-        survey.elevation_control=request.POST['elevation_control']
-        survey.mhhw=request.POST['mhhw']
-        survey.mllw=request.POST['mllw']
-        survey.save()
+        survey.delete()
         result = True
     except:
         result = False
 
     surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
-    
+
     return JsonResponse({'result':result, 'surveys':surveys})
 
 

@@ -12,6 +12,7 @@
         <div class="col-md-6 col-xs-6">
             <h4 class="text-light">Survey History for {{ beach.name }}</h4>
             <input type="hidden" id="beach_id" value="{{ beach.id }}">
+            <input type="hidden" id="beach_name" value="{{ beach.name }}">
         </div>
         <!-- <div class="col-md-6 col-xs-6 text-right">
             <button class="btn btn-secondary">Edit Survey Instance</button>
@@ -32,24 +33,43 @@
     <div class="row">
         <div class="col">
             <div class="card p-5">
-                <div class="row">
-                    <div class="col">
-                        <table id="survey_table" class="table">
-                
-                        </table>
-                    </div>
-                </div>
 
                 <div id="survey_form" class="row" hidden>
                     <div class="col">
                         <form class="form-inline w-100">
-                            <div class="form-group">
-                                <input type="date" id="start_date" class="form-control">
-                                <input type="text" id="elevation_control" class="form-control">
-                                <input type="text" id="mhhw" class="form-control">
-                                <input type="text" id="mllw" class="form-control">
+                            <div class="form-group w-100">
+                                <label>Start Date:</label>
+                                <input type="date" id="start_date" class="form-control ml-1 mr-1">
+                                <label>Elevation Control</label>
+                                <input type="text" id="elevation_control" class="form-control ml-1 mr-1">
+                                <label>MHHW</label>
+                                <input type="text" id="mhhw" class="form-control ml-1 mr-1">
+                                <label>MLLW</label>
+                                <input type="text" id="mllw" class="form-control ml-1 mr-1">
 
                                 <button class="btn btn-success ml-1 mr-1" onclick="add_survey()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_survey_form()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="edit_form" class="row" hidden>
+                    <div class="col">
+                        <form class="form-inline w-100">
+                            <div class="form-group w-100">
+                                <label>ID:</label>
+                                <input type="text" id="edit_id" class="form-control ml-1 mr-1" disabled>
+                                <label>Start Date:</label>
+                                <input type="date" id="edit_start_date" class="form-control ml-1 mr-1">
+                                <label>Elevation Control</label>
+                                <input type="text" id="edit_elevation_control" class="form-control ml-1 mr-1">
+                                <label>MHHW</label>
+                                <input type="text" id="edit_mhhw" class="form-control ml-1 mr-1">
+                                <label>MLLW</label>
+                                <input type="text" id="edit_mllw" class="form-control ml-1 mr-1">
+
+                                <button class="btn btn-success ml-1 mr-1" onclick="edit_survey()">Submit</button>
                                 <button class="btn btn-secondary ml-1 mr-1" onclick="hide_survey_form()">Cancel</button>
                             </div>
                         </form>
@@ -61,6 +81,15 @@
                         <button class="btn btn-success" onclick="show_survey_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        <table id="survey_table" class="table">
+                
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

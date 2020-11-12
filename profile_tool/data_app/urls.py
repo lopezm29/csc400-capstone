@@ -12,16 +12,14 @@ urlpatterns=[
     ###############
     path('populate_beach_table', views.populate_beach_table, name='populate_beach_table'),
     path('add_beach', views.add_beach, name='add_beach'),
-    path('update_beach', views.update_beach, name='update_beach'),
     path('edit_beach', views.edit_beach, name='edit_beach'),
     path('delete_beach', views.delete_beach, name='delete_beach'),
 
 
     path('populate_survey_table', views.populate_survey_table, name='populate_survey_table'),
     path('add_survey', views.add_survey, name='add_survey'),
-    path('update_survey', views.update_survey, name='update_survey'),
-    # path('edit_beach', views.edit_beach, name='edit_beach'),
-    # path('delete_beach', views.delete_beach, name='delete_beach'),
+    path('edit_survey', views.edit_survey, name='edit_survey'),
+    path('delete_survey', views.delete_survey, name='delete_survey'),
 
 
     path('populate_profile_table', views.populate_profile_table, name='populate_profile_table'),
