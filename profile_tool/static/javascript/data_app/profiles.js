@@ -3,7 +3,7 @@ function bind_row_select(table)
     $('#profile_table tbody').on('dblclick', 'tr', function () {
         var data = table.row( this ).data();
         // alert( 'You clicked on '+data['id']+'\'s row' );
-        window.location.href = "/surveys/" + $("#beach_id").val() + "/profiles/" + $("#survey_id").val() + "/stations/" + data["id"];
+        window.location.href = "/surveys/" + $("#beach_id").val() + "/profiles/" + $("#survey_id").val() + "/stations/" + data["profile_id"];
     } );
 }
 
@@ -153,8 +153,12 @@ window.onload = function(e){
         ordering:true,
         // info:true,
         searching:true,
-        select:true,
-        responsive:true
+        select:
+        {
+            style: 'single'
+        },
+        responsive:true,
+        dom: "Blrtip"
     });
 
     populate_profile_table();

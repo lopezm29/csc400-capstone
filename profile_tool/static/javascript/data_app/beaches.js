@@ -272,7 +272,10 @@ window.onload = function(e){
         ordering:true,
         // info:true,
         searching:true,
-        select:true,
+        select:
+        {
+            style: 'single'
+        },
         responsive:true,
         dom: "Blrtip"
     });

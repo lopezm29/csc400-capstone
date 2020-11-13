@@ -158,8 +158,12 @@ window.onload = function(e){
         ordering:true,
         // info:true,
         searching:true,
-        select:true,
-        responsive:true
+        select:
+        {
+            style: 'single'
+        },
+        responsive:true,
+        dom: "Blrtip"
     });
 
     populate_station_table();
