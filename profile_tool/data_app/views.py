@@ -256,22 +256,37 @@ def add_profile(request):
 
 
 '''
-@name update_profile
-update profile data
+@name edit_profile
+edit profile data
 return updated dict of profile info
 '''
-def update_profile(request):
+def edit_profile(request):
     try:
-        profile = Profile.objects.get(id=int(request.POST['id']))
+        profile = Profile.objects.get(id=int(request.POST['profile_id']))
         profile.section=request.POST['section']
-        profile.elevation_control=request.POST['elevation_control']
-        # profile.width=request.POST['width']
-        # profile.volume=request.POST['volume']
         profile.save()
         result = True
     except:
         result = False
     
+    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+
+    return JsonResponse({'result':result, 'profiles':profiles})
+
+
+'''
+@name delete_profile
+delete profile data
+return updated dict of beach info
+'''
+def delete_profile(request):
+    try:
+        profile = Profile.objects.get(id=int(request.POST['id']))
+        profile.delete()
+        result = True
+    except:
+        result = False
+
     profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
 
     return JsonResponse({'result':result, 'profiles':profiles})
@@ -299,11 +314,19 @@ return updated dict of station info
 '''
 def add_station(request):
     try:
+        profile = Profile.objects.get(id=int(request.POST['profile_id']))
+
         station = Station.objects.get(id=int(request.POST['id']))
         station.distance=request.POST['distance']
         station.z=request.POST['z']
         station.comment=request.POST['comment']
         station.save()
+
+        mapper = Profilestationmap()
+        mapper.profile = profile
+        mapper.station = station
+        mapper.save()
+
         result = True
     except:
         result = False
@@ -314,11 +337,11 @@ def add_station(request):
 
 
 '''
-@name update_station
-update station data
+@name edit_station
+edit station data
 return updated dict of station info
 '''
-def update_station(request):
+def edit_station(request):
     try:
         station = Station.objects.get(id=int(request.POST['id']))
         station.distance=request.POST['distance']
@@ -334,3 +357,19 @@ def update_station(request):
     return JsonResponse({'result':result, 'stations':stations})
 
 
+'''
+@name delete_station
+delete station data
+return updated dict of beach info
+'''
+def delete_station(request):
+    try:
+        station = Station.objects.get(id=int(request.POST['id']))
+        station.delete()
+        result = True
+    except:
+        result = False
+
+    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
+
+    return JsonResponse({'result':result, 'stations':stations})

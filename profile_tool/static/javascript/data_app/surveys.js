@@ -261,7 +261,8 @@ window.onload = function(e){
             {
                 extend: "csv",
                 className: "bg-primary border-primary text-light mr-1 ml-1",
-                title: "Export"
+                title: $("#beach_name").val() + "_survey_history",
+                text: "Export to Excel",
             },
             {
                 className: "bg-secondary border-primary text-light mr-1 ml-1",

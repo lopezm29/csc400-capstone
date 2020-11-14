@@ -24,14 +24,12 @@ urlpatterns=[
 
     path('populate_profile_table', views.populate_profile_table, name='populate_profile_table'),
     path('add_profile', views.add_profile, name='add_profile'),
-    path('update_profile', views.update_profile, name='update_profile'),
-    # path('edit_beach', views.edit_beach, name='edit_beach'),
-    # path('delete_beach', views.delete_beach, name='delete_beach'),
+    path('edit_profile', views.edit_profile, name='edit_profile'),
+    path('delete_profile', views.delete_profile, name='delete_profile'),
 
 
     path('populate_station_table', views.populate_station_table, name='populate_station_table'),
     path('add_station', views.add_station, name='add_station'),
-    path('update_station', views.update_station, name='update_station'),
-    # path('edit_beach', views.edit_beach, name='edit_beach'),
-    # path('delete_beach', views.delete_beach, name='delete_beach'),
+    path('edit_station', views.edit_station, name='edit_station'),
+    path('delete_station', views.delete_station, name='delete_station'),
 ]
