@@ -47,18 +47,11 @@
         <div class="col">
             
             <div class="card p-5">
-                <div class="row">
-                    <div class="col">
-                        <table id="station_table">
-                
-                        </table>
-                    </div>
-                </div>
 
                 <div id="station_form" class="row" hidden>
                     <div class="col">
                         <form class="form-inline w-100">
-                            <div class="form-group">
+                            <div class="form-group w-100">
                                 <input type="text" id="distance" class="form-control">
                                 <input type="text" id="z" class="form-control">
                                 <input type="text" id="comment" class="form-control">
@@ -69,12 +62,36 @@
                         </form>
                     </div>
                 </div>
+
+                <div id="edit_form" class="row" hidden>
+                    <div class="col">
+                        <form class="form-inline w-100">
+                            <div class="form-group w-100">
+                                <input type="text" id="edit_distance" class="form-control">
+                                <input type="text" id="edit_z" class="form-control">
+                                <input type="text" id="edit_comment" class="form-control">
+
+                                <button class="btn btn-success ml-1 mr-1" onclick="edit_station()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_edit_form()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 
                 <div class="row pt-5">
                     <div class="col">
                         <button class="btn btn-success" onclick="show_station_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col">
+                        <table id="station_table">
+                
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
