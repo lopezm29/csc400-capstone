@@ -2,7 +2,6 @@ function bind_row_select(table)
 {
     $('#profile_table tbody').on('dblclick', 'tr', function () {
         var data = table.row( this ).data();
-        // alert( 'You clicked on '+data['id']+'\'s row' );
         window.location.href = "/surveys/" + $("#beach_id").val() + "/profiles/" + $("#survey_id").val() + "/stations/" + data["profile_id"];
     } );
 }
@@ -233,18 +232,12 @@ window.onload = function(e){
                 title:"Volume",
                 name:"volume"
             },
-            // {
-            //     data:"actions",
-            //     title:"Actions",
-            //     name:"actions"
-            // }
         ],
         "columnDefs":[{
             "className": "dt-center",
             "targets": "_all"
         }],
         buttons:[
-            // 'copy','csv','excel','pdf','print'
             {
                 extend: "csv",
                 className: "bg-primary border-primary text-light mr-1 ml-1",
@@ -256,7 +249,7 @@ window.onload = function(e){
                 text: "Edit Selected",
                 action: function()
                 {
-                    var row = profile_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = profile_table.row( ".selected" ).data();
                     $("#edit_id").val(row["profile_id"]);
                     $("#edit_section").val(row["section"]);
                     show_edit_form();
@@ -267,7 +260,7 @@ window.onload = function(e){
                 text: "Delete Selected",
                 action: function()
                 {
-                    var row = profile_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = profile_table.row( ".selected" ).data();
                     delete_profile(row["profile_id"]);
                 }
             }

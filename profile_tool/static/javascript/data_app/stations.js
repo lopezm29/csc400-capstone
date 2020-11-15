@@ -247,18 +247,12 @@ window.onload = function(e){
                 title:"True Elevation",
                 name:"true_z"
             },
-            // {
-            //     data:"actions",
-            //     title:"Actions",
-            //     name:"actions"
-            // }
         ],
         "columnDefs":[{
             "className": "dt-center",
             "targets": "_all"
         }],
         buttons:[
-            // 'copy','csv','excel','pdf','print'
             {
                 extend: "csv",
                 className: "bg-primary border-primary text-light mr-1 ml-1",
@@ -270,7 +264,7 @@ window.onload = function(e){
                 text: "Edit Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = survey_table.row( ".selected" ).data();
                     $("#edit_id").val(row["station_id"]);
                     $("#edit_distance").val(row["distance"]);
                     $("#edit_z").val(row["z"]);
@@ -283,9 +277,8 @@ window.onload = function(e){
                 text: "Delete Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = survey_table.row( ".selected" ).data();
                     delete_survey(row["station_id"]);
-                    
                 }
             }
         ],

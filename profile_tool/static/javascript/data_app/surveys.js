@@ -2,7 +2,6 @@ function bind_row_select(table)
 {
     $('#survey_table tbody').on('dblclick', 'tr', function () {
         var data = table.row( this ).data();
-        // alert( 'You clicked on '+data['id']+'\'s row' );
         window.location.href = "/surveys/" + $("#beach_id").val() + "/profiles/" + data["survey_id"];
     } );
 }
@@ -269,7 +268,7 @@ window.onload = function(e){
                 text: "Edit Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = survey_table.row( ".selected" ).data();
                     $("#edit_id").val(row["survey_id"]);
                     $("#edit_start_date").val(row["start_date"]);
                     $("#edit_elevation_control").val(row["elevation_control"]);
@@ -283,7 +282,7 @@ window.onload = function(e){
                 text: "Delete Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();//{ selected: true } );
+                    var row = survey_table.row( ".selected" ).data();
                     delete_survey(row["survey_id"]);
                     
                 }

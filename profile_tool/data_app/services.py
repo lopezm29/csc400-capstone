@@ -2,7 +2,7 @@ from django.db.models import F
 from .models import *
 
 
-def package_queryset(queryset):
+def package_queryset_json(queryset):
     packaged_dict = {}
     for row in queryset:
         packaged_dict[row['id']] = row
@@ -67,7 +67,25 @@ def get_stations_table(profile_id):
         number=F('station__number'),
         distance=F('station__distance'),
         z=F('station__z'),
-        comment=F('station__comment')
+        comment=F('station__comment'),
+        true_distance=F('reduced__true_distance'),
+        true_z=F('reduced__true_z')
     ).values()
 
     return stations
+
+
+'''
+@name get_station_table
+return waterline (z) value
+'''
+def get_stations_table(profile_id):
+    waterline_z = Profilestationmap.objects.filter(
+        profile=profile_id
+    ).filter(
+        comment="W.L."
+    ).annotate(
+        true_z=F('reduced__true_z'),
+    ).values().true_z
+
+    return waterline_z

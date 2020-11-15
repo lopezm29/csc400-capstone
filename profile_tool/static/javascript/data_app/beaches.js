@@ -2,7 +2,6 @@ function bind_row_select(table)
 {
     $('#beach_table tbody').on('dblclick', 'tr', function () {
         var data = table.row( this ).data();
-        // alert( 'You clicked on '+data['id']+'\'s row' );
         window.location.href = "/surveys/" + data["id"];
     } );
 }
@@ -186,7 +185,6 @@ function delete_beach(id)
         },
         beforeSend: function()
         {
-            // show_loading_modal();
             table.clear();
         },
         success: function(data)
@@ -202,18 +200,12 @@ function delete_beach(id)
                 table.draw();
 
                 bind_row_select(table);
-                // $('#loading_modal').modal('hide');
             }
-            // console.log("ready to hide");
-            // $('#loading_modal').modal('hide');
-            // console.log("hidden?");
         },
         error: function(error_data)
         {
             console.log("error");
             console.log(error_data);
-
-            // $('#loading_modal').modal('hide');
         }
     });
 }

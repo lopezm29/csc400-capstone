@@ -58,8 +58,7 @@ return dict of beach info
 def populate_beach_table(request):
     beaches = {}
     try:
-        beaches = package_queryset(get_beaches_table())
-        # beaches = serializers.serialize('json', beaches)
+        beaches = package_queryset_json(get_beaches_table())
         result = True
     except:
         result = False
@@ -81,7 +80,7 @@ def add_beach(request):
     except:
         result = False
 
-    beaches = package_queryset(get_beaches_table())
+    beaches = package_queryset_json(get_beaches_table())
 
     return JsonResponse({'result':result, 'beaches':beaches})
 
@@ -100,7 +99,7 @@ def edit_beach(request):
     except:
         result = False
 
-    beaches = package_queryset(get_beaches_table())
+    beaches = package_queryset_json(get_beaches_table())
 
     return JsonResponse({'result':result, 'beaches':beaches})
 
@@ -118,7 +117,7 @@ def delete_beach(request):
     except:
         result = False
 
-    beaches = package_queryset(get_beaches_table())
+    beaches = package_queryset_json(get_beaches_table())
 
     return JsonResponse({'result':result, 'beaches':beaches})
 
@@ -130,7 +129,7 @@ return dict of beach info
 def populate_survey_table(request):
     surveys = {}
     try:
-        surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+        surveys = package_queryset_json(get_surveys_table(int(request.POST['beach_id'])))
         result = True
     except:
         result = False
@@ -144,28 +143,28 @@ add survey data
 return updated dict of survey info
 '''
 def add_survey(request):
-    # try:
-    beach = Beach.objects.get(id=int(request.POST['beach_id']))
-    survey = Survey()
-    survey.start_date=request.POST['start_date']
-    if '' != request.POST['elevation_control']:
-        survey.elevation_control = request.POST['elevation_control']
-    if '' != request.POST['mhhw']:
-        survey.mhhw = request.POST['mhhw']
-    if '' != request.POST['mllw']:
-        survey.mllw = request.POST['mllw']
-    survey.save()
+    try:
+        beach = Beach.objects.get(id=int(request.POST['beach_id']))
+        survey = Survey()
+        survey.start_date=request.POST['start_date']
+        if '' != request.POST['elevation_control']:
+            survey.elevation_control = request.POST['elevation_control']
+        if '' != request.POST['mhhw']:
+            survey.mhhw = request.POST['mhhw']
+        if '' != request.POST['mllw']:
+            survey.mllw = request.POST['mllw']
+        survey.save()
 
-    mapper = Beachsurveymap()
-    mapper.beach = beach
-    mapper.survey = survey
-    mapper.save()
+        mapper = Beachsurveymap()
+        mapper.beach = beach
+        mapper.survey = survey
+        mapper.save()
 
-    result = True
-    # except:
-        # result = False
+        result = True
+    except:
+        result = False
 
-    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+    surveys = package_queryset_json(get_surveys_table(int(request.POST['beach_id'])))
     
     return JsonResponse({'result':result, 'surveys':surveys})
 
@@ -188,7 +187,7 @@ def edit_survey(request):
     except:
         result = False
 
-    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+    surveys = package_queryset_json(get_surveys_table(int(request.POST['beach_id'])))
     
     return JsonResponse({'result':result, 'surveys':surveys})
 
@@ -206,7 +205,7 @@ def delete_survey(request):
     except:
         result = False
 
-    surveys = package_queryset(get_surveys_table(int(request.POST['beach_id'])))
+    surveys = package_queryset_json(get_surveys_table(int(request.POST['beach_id'])))
 
     return JsonResponse({'result':result, 'surveys':surveys})
 
@@ -218,7 +217,7 @@ return dict of beach info
 def populate_profile_table(request):
     profiles = {}
     try:
-        profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+        profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
         result = True
     except:
         result = False
@@ -237,8 +236,6 @@ def add_profile(request):
 
         profile = Profile()
         profile.section=request.POST['section']
-        # profile.width=request.POST['width']
-        # profile.volume=request.POST['volume']
         profile.save()
 
         mapper = Surveyprofilemap()
@@ -250,7 +247,7 @@ def add_profile(request):
     except:
         result = False
     
-    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
 
     return JsonResponse({'result':result, 'profiles':profiles})
 
@@ -269,7 +266,7 @@ def edit_profile(request):
     except:
         result = False
     
-    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
 
     return JsonResponse({'result':result, 'profiles':profiles})
 
@@ -277,7 +274,7 @@ def edit_profile(request):
 '''
 @name delete_profile
 delete profile data
-return updated dict of beach info
+return updated dict of profile info
 '''
 def delete_profile(request):
     try:
@@ -287,7 +284,30 @@ def delete_profile(request):
     except:
         result = False
 
-    profiles = package_queryset(get_profiles_table(int(request.POST['survey_id'])))
+    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
+
+    return JsonResponse({'result':result, 'profiles':profiles})
+
+
+'''
+@name calculate_profile_datums
+calculate beach width and volume
+return updated dict of beach info
+'''
+def calculate_profile_datums(request):
+    try:
+        profile = Profile.objects.get(id=int(request.POST['profile_id']))
+        stations = get_stations_table(int(request.POST['profile_id']))
+        waterline = 
+
+        profile.width = calc_beach_width(stations, waterline)
+        profile.volume = calc_beach_volume(stations, waterline)
+
+        result = True
+    except:
+        result = False
+
+    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
 
     return JsonResponse({'result':result, 'profiles':profiles})
 
@@ -299,7 +319,7 @@ return dict of beach info
 def populate_station_table(request):
     stations = {}
     try:
-        stations = package_queryset(get_stations_table(request.POST['profile_id']))
+        stations = package_queryset_json(get_stations_table(request.POST['profile_id']))
         result = True
     except:
         result = False
@@ -316,22 +336,26 @@ def add_station(request):
     try:
         profile = Profile.objects.get(id=int(request.POST['profile_id']))
 
-        station = Station.objects.get(id=int(request.POST['id']))
+        station = Station()
         station.distance=request.POST['distance']
         station.z=request.POST['z']
         station.comment=request.POST['comment']
         station.save()
 
+        reduced = Reduced()
+        reduced.save()
+
         mapper = Profilestationmap()
         mapper.profile = profile
         mapper.station = station
+        mapper.reduced = reduced
         mapper.save()
 
         result = True
     except:
         result = False
     
-    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
+    stations = package_queryset_json(get_stations_table(int(request.POST['profile_id'])))
 
     return JsonResponse({'result':result, 'stations':stations})
 
@@ -352,7 +376,7 @@ def edit_station(request):
     except:
         result = False
     
-    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
+    stations = package_queryset_json(get_stations_table(int(request.POST['profile_id'])))
 
     return JsonResponse({'result':result, 'stations':stations})
 
@@ -370,6 +394,6 @@ def delete_station(request):
     except:
         result = False
 
-    stations = package_queryset(get_stations_table(int(request.POST['profile_id'])))
+    stations = package_queryset_json(get_stations_table(int(request.POST['profile_id'])))
 
     return JsonResponse({'result':result, 'stations':stations})
