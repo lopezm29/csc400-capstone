@@ -8,7 +8,6 @@ class Beach(models.Model):
 class Survey(models.Model):
     id = models.AutoField(primary_key=True)
     start_date = models.DateField(blank=False)
-    elevation_control = models.DecimalField(decimal_places=3, max_digits=5, null=True, blank=True)
     mhhw = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     mllw = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
 
@@ -16,6 +15,7 @@ class Survey(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     section = models.CharField(max_length=3,blank=False)
+    elevation_control = models.DecimalField(decimal_places=3, max_digits=5, null=True, blank=True)
     width = models.DecimalField(decimal_places=3, max_digits=8, blank=True, null=True)
     volume = models.DecimalField(decimal_places=6, max_digits=9, blank=True, null=True)
 

@@ -57,6 +57,7 @@ function show_profile_form()
 function hide_profile_form()
 {
     $("#profile_form").prop("hidden", true);
+    $("#elevation_control").val("");
     $("#profile_section").val("");
 }
 
@@ -71,6 +72,7 @@ function show_edit_form()
 function hide_edit_form()
 {
     $("#edit_form").prop("hidden", true);
+    $("#edit_elevation_control").val("");
     $("#edit_section").val("");
 }
 
@@ -86,7 +88,8 @@ function add_profile()
         {
             "csrfmiddlewaretoken" : csrftoken,
             "survey_id" : $("#survey_id").val(),
-            "section" : $("#section").val(),       
+            "section" : $("#section").val(),
+            "elevation_control" : $("#elevation_control").val(),
         },
         beforeSend: function()
         {
@@ -132,7 +135,8 @@ function edit_profile()
             "csrfmiddlewaretoken" : csrftoken,
             "survey_id" : $("#survey_id").val(),
             "profile_id" : $("#edit_id").val(),
-            "section" : $("#edit_section").val(),       
+            "section" : $("#edit_section").val(),
+            "elevation_control" : $("#edit_elevation_control").val(),
         },
         beforeSend: function()
         {
@@ -223,6 +227,11 @@ window.onload = function(e){
                 name:"section"
             },
             {
+                data:"elevation_control",
+                title:"Elevation Control",
+                name:"elevation_control"
+            },
+            {
                 data:"width",
                 title:"Width",
                 name:"width"
@@ -252,6 +261,7 @@ window.onload = function(e){
                     var row = profile_table.row( ".selected" ).data();
                     $("#edit_id").val(row["profile_id"]);
                     $("#edit_section").val(row["section"]);
+                    $("#edit_elevation_control").val(row["elevation_control"]);
                     show_edit_form();
                 }
             },

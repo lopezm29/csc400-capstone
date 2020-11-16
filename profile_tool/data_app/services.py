@@ -30,7 +30,6 @@ def get_surveys_table(beach_id):
     ).annotate(
         id_ph=F('survey__id'),
         start_date=F('survey__start_date'),
-        elevation_control=F('survey__elevation_control'),
         mhhw=F('survey__mhhw'),
         mllw=F('survey__mllw')
     ).values()
@@ -48,6 +47,7 @@ def get_profiles_table(survey_id):
     ).annotate(
         id_ph=F('profile__id'),
         section=F('profile__section'),
+        elevation_control=F('profile__elevation_control'),
         width=F('profile__width'),
         volume=F('profile__volume')
     ).values()

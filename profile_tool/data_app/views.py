@@ -146,9 +146,7 @@ def add_survey(request):
     try:
         beach = Beach.objects.get(id=int(request.POST['beach_id']))
         survey = Survey()
-        survey.start_date=request.POST['start_date']
-        if '' != request.POST['elevation_control']:
-            survey.elevation_control = request.POST['elevation_control']
+        survey.start_date=request.POST['start_date']            
         if '' != request.POST['mhhw']:
             survey.mhhw = request.POST['mhhw']
         if '' != request.POST['mllw']:
@@ -178,7 +176,6 @@ def edit_survey(request):
     try:
         survey = Survey.objects.get(id=int(request.POST['survey_id']))
         survey.start_date=request.POST['start_date']
-        survey.elevation_control = request.POST['elevation_control']
         survey.mhhw = request.POST['mhhw']
         survey.mllw = request.POST['mllw']
         survey.save()
@@ -236,6 +233,7 @@ def add_profile(request):
 
         profile = Profile()
         profile.section=request.POST['section']
+        profile.elevation_control = request.POST['elevation_control']
         profile.save()
 
         mapper = Surveyprofilemap()
@@ -261,6 +259,7 @@ def edit_profile(request):
     try:
         profile = Profile.objects.get(id=int(request.POST['profile_id']))
         profile.section=request.POST['section']
+        profile.elevation_control = request.POST['elevation_control']
         profile.save()
         result = True
     except:

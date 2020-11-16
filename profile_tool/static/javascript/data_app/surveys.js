@@ -58,7 +58,6 @@ function hide_survey_form()
 {
     $("#survey_form").prop("hidden", true);
     $("#start_date").val("");
-    $("#elevation_control").val("");
     $("#mhhw").val("");
     $("#mllw").val("");
 }
@@ -76,7 +75,6 @@ function hide_edit_form()
     $("#edit_form").prop("hidden", true);
     $("#edit_id").val("");
     $("#edit_start_date").val("");
-    $("#edit_elevation_control").val("");
     $("#edit_mhhw").val("");
     $("#edit_mllw").val("");
 }
@@ -94,7 +92,6 @@ function add_survey()
             "csrfmiddlewaretoken" : csrftoken,
             "beach_id" : $("#beach_id").val(),
             "start_date" : $("#start_date").val(),
-            "elevation_control" : $("#elevation_control").val(),
             "mhhw" : $("#mhhw").val(),
             "mllw" : $("#mllw").val()          
         },
@@ -143,7 +140,6 @@ function edit_survey()
             "beach_id" : $("#beach_id").val(),
             "survey_id" : $("#edit_id").val(),
             "start_date" : $("#edit_start_date").val(),
-            "elevation_control" : $("#edit_elevation_control").val(),
             "mhhw" : $("#edit_mhhw").val(),
             "mllw" : $("#edit_mllw").val()          
         },
@@ -237,11 +233,6 @@ window.onload = function(e){
                 name:"start_date"
             },
             {
-                data:"elevation_control",
-                title:"Elevation Control",
-                name:"elevation_control"
-            },
-            {
                 data:"mhhw",
                 title:"MHHW",
                 name:"mhhw"
@@ -271,7 +262,6 @@ window.onload = function(e){
                     var row = survey_table.row( ".selected" ).data();
                     $("#edit_id").val(row["survey_id"]);
                     $("#edit_start_date").val(row["start_date"]);
-                    $("#edit_elevation_control").val(row["elevation_control"]);
                     $("#edit_mhhw").val(row["mhhw"]);
                     $("#edit_mllw").val(row["mllw"]);
                     show_edit_form();
