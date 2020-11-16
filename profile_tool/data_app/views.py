@@ -295,21 +295,22 @@ calculate beach width and volume
 return updated dict of beach info
 '''
 def calculate_profile_datums(request):
-    try:
-        profile = Profile.objects.get(id=int(request.POST['profile_id']))
-        stations = get_stations_table(int(request.POST['profile_id']))
-        waterline = 
+    pass
+    # try:
+    #     profile = Profile.objects.get(id=int(request.POST['profile_id']))
+    #     stations = get_stations_table(int(request.POST['profile_id']))
+    #     # waterline = 
 
-        profile.width = calc_beach_width(stations, waterline)
-        profile.volume = calc_beach_volume(stations, waterline)
+    #     profile.width = calc_beach_width(stations, waterline)
+    #     profile.volume = calc_beach_volume(stations, waterline)
 
-        result = True
-    except:
-        result = False
+    #     result = True
+    # except:
+    #     result = False
 
-    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
+    # profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
 
-    return JsonResponse({'result':result, 'profiles':profiles})
+    # return JsonResponse({'result':result, 'profiles':profiles})
 
 
 '''
@@ -324,7 +325,7 @@ def populate_station_table(request):
     except:
         result = False
 
-    return JsonResponse({'result':result, 'profiles':stations})
+    return JsonResponse({'result':result, 'stations':stations})
 
 
 '''
@@ -337,6 +338,7 @@ def add_station(request):
         profile = Profile.objects.get(id=int(request.POST['profile_id']))
 
         station = Station()
+        station.number=request.POST['number']
         station.distance=request.POST['distance']
         station.z=request.POST['z']
         station.comment=request.POST['comment']
@@ -368,6 +370,7 @@ return updated dict of station info
 def edit_station(request):
     try:
         station = Station.objects.get(id=int(request.POST['id']))
+        station.number=int(request.POST['number'])
         station.distance=request.POST['distance']
         station.z=request.POST['z']
         station.comment=request.POST['comment']

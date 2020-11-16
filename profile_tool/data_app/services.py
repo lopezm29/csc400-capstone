@@ -60,7 +60,7 @@ def get_profiles_table(survey_id):
 return dict of station info
 '''
 def get_stations_table(profile_id):
-    station = Profilestationmap.objects.filter(
+    stations = Profilestationmap.objects.filter(
         profile=profile_id
     ).annotate(
         id_ph=F('station__id'),
@@ -75,17 +75,17 @@ def get_stations_table(profile_id):
     return stations
 
 
-'''
-@name get_station_table
-return waterline (z) value
-'''
-def get_stations_table(profile_id):
-    waterline_z = Profilestationmap.objects.filter(
-        profile=profile_id
-    ).filter(
-        comment="W.L."
-    ).annotate(
-        true_z=F('reduced__true_z'),
-    ).values().true_z
+# '''
+# @name get_station_table
+# return waterline (z) value
+# '''
+# def get_stations_table(profile_id):
+#     waterline_z = Profilestationmap.objects.filter(
+#         profile=profile_id
+#     ).filter(
+#         comment="W.L."
+#     ).annotate(
+#         true_z=F('reduced__true_z'),
+#     ).values().true_z
 
-    return waterline_z
+#     return waterline_z

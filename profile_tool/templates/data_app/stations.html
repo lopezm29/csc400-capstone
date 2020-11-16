@@ -14,8 +14,11 @@
             <h5 class="text-light">Start Date: {{survey.start_date}}</h5>
             <h5 class="text-light">Section: {{ profile.section }}</h5>
             <input type="hidden" id="beach_id" value="{{ beach.id }}">
+            <input type="hidden" id="beach_name" value="{{ beach.name }}">
             <input type="hidden" id="survey_id" value="{{ survey.id }}">
-            <input type="hidden" id="station_id" value="{{ station.id }}">
+            <input type="hidden" id="survey_date" value="{{ survey.date }}">
+            <input type="hidden" id="profile_id" value="{{ profile.id }}">
+            <input type="hidden" id="profile_section" value="{{ profile.section }}">
         </div>
         <!-- <div class="col-md-6 col-xs-6 text-right">
             <button class="btn btn-secondary">Edit Survey Instance</button>
@@ -52,8 +55,13 @@
                     <div class="col">
                         <form class="form-inline w-100">
                             <div class="form-group w-100">
+                                <label>Number:</label>
+                                <input type="text" id="number" class="form-control">
+                                <label>Distance:</label>
                                 <input type="text" id="distance" class="form-control">
+                                <label>Elevation:</label>
                                 <input type="text" id="z" class="form-control">
+                                <label>Comment</label>
                                 <input type="text" id="comment" class="form-control">
 
                                 <button class="btn btn-success ml-1 mr-1" onclick="add_station()">Submit</button>
@@ -67,8 +75,15 @@
                     <div class="col">
                         <form class="form-inline w-100">
                             <div class="form-group w-100">
+                                <label>ID:</label>
+                                <input type="text" id="edit_id" class="form-control" disabled>
+                                <label>Number:</label>
+                                <input type="text" id="edit_number" class="form-control">
+                                <label>Distance:</label>
                                 <input type="text" id="edit_distance" class="form-control">
+                                <label>Elevation:</label>
                                 <input type="text" id="edit_z" class="form-control">
+                                <label>Comment</label>
                                 <input type="text" id="edit_comment" class="form-control">
 
                                 <button class="btn btn-success ml-1 mr-1" onclick="edit_station()">Submit</button>

@@ -82,9 +82,10 @@ function add_station()
         {
             "csrfmiddlewaretoken" : csrftoken,
             "profile_id" : $("#profile_id").val(),
-            "distance" : $("distance").val(),       
-            "z" : $("z").val(),       
-            "comment" : $("comment").val(),       
+            "number" : $("#number").val(),  
+            "distance" : $("#distance").val(),       
+            "z" : $("#z").val(),       
+            "comment" : $("#comment").val(),       
         },
         beforeSend: function()
         {
@@ -130,9 +131,10 @@ function edit_station()
             "csrfmiddlewaretoken" : csrftoken,
             "profile_id" : $("#profile_id").val(),
             "station_id" : $("#edit_id").val(),
-            "distance" : $("edit_distance").val(),       
-            "z" : $("edit_z").val(),       
-            "comment" : $("edit_comment").val(),       
+            "number" : $("#edit_number").val(),  
+            "distance" : $("#edit_distance").val(),       
+            "z" : $("#edit_z").val(),       
+            "comment" : $("#edit_comment").val(),       
         },
         beforeSend: function()
         {
@@ -209,7 +211,7 @@ function delete_station(id)
 
 
 window.onload = function(e){
-    $('#station_table').DataTable({
+    var station_table = $('#station_table').DataTable({
         data:[],
         columns: [
             {
@@ -233,9 +235,9 @@ window.onload = function(e){
                 name:"z"
             },
             {
-                data:"section",
+                data:"comment",
                 title:"Comment",
-                name:"section"
+                name:"comment"
             },
             {
                 data:"true_distance",
@@ -264,8 +266,9 @@ window.onload = function(e){
                 text: "Edit Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();
+                    var row = station_table.row( ".selected" ).data();
                     $("#edit_id").val(row["station_id"]);
+                    $("#edit_number").val(row["number"]);
                     $("#edit_distance").val(row["distance"]);
                     $("#edit_z").val(row["z"]);
                     $("#edit_comment").val(row["comment"]);
@@ -277,8 +280,8 @@ window.onload = function(e){
                 text: "Delete Selected",
                 action: function()
                 {
-                    var row = survey_table.row( ".selected" ).data();
-                    delete_survey(row["station_id"]);
+                    var row = station_table.row( ".selected" ).data();
+                    delete_station(row["station_id"]);
                 }
             }
         ],
