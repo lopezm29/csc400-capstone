@@ -46,6 +46,7 @@ function show_station_form()
 function hide_station_form()
 {
     $("#station_form").prop("hidden", true);
+    $("#number").val("");    
     $("#distance").val("");
     $("#z").val("");
     $("#comment").val("");
@@ -56,14 +57,15 @@ function hide_station_form()
 function show_edit_form()
 {
     hide_station_form();
-    $("#station_form").prop("hidden", false);
+    $("#edit_form").prop("hidden", false);
 }
 
 
 function hide_edit_form()
 {
     $("#edit_form").prop("hidden", true);
-    $("#edit_id").val("");    
+    $("#edit_number").val("");
+    $("#edit_id").val("");     
     $("#edit_distance").val("");
     $("#edit_z").val("");
     $("#edit_comment").val("");
@@ -210,6 +212,59 @@ function delete_station(id)
 }
 
 
+function generate_line_chart()
+{
+    $.ajax({
+        method: "POST",
+        url: "/populate_station_table",
+        dataType: "json",
+        data: 
+        {
+            "csrfmiddlewaretoken" : csrftoken,
+            "profile_id" : $("#profile_id").val(),
+        },
+        success: function(data)
+        {
+            console.log(data);
+
+            if(data["result"])
+            {
+                profile_distance_list = [];
+                profile_z_list = [];
+                waterline_z = 0.0;
+
+                for(var key in data["stations"])
+                {
+                    profile_distance_list.push(parseFloat(data["stations"][key]["distance"]));
+                    profile_z_list.push(parseFloat(data["stations"][key]["z"]));
+                    if("W.L." == data["stations"][key]["comment"]);
+                    {
+                        waterline_z = parseFloat(data["stations"][key]["z"]);
+                    }
+                }
+
+                plot_line_chart(
+                    profile_distance_list=profile_distance_list,
+                    profile_z_list=profile_z_list,
+                    section=$("#profile_section").val(),
+                    title=$("#beach_name").val() + " " + $("#survey_date").val() + " " + $("#profile_section").val(),
+                    mhhw=$("#survey_mhhw").val(),
+                    mllw=$("#survey_mllw").val(),
+                    waterline_z=waterline_z
+                );
+
+            }
+
+        },
+        error: function(error_data)
+        {
+            console.log("error");
+            console.log(error_data);        
+        }
+    });
+}
+
+
 window.onload = function(e){
     var station_table = $('#station_table').DataTable({
         data:[],
@@ -257,12 +312,28 @@ window.onload = function(e){
         buttons:[
             {
                 extend: "csv",
-                className: "bg-primary border-primary text-light mr-1 ml-1",
+                className: "bg-primary text-light mr-1 ml-1",
                 title: $("#beach_name").val() + "_" + $("#survey_date").val() + "_" + $("#profile_section").val() + "_station_data",
                 text: "Export to Excel",
             },
             {
-                className: "bg-secondary border-primary text-light mr-1 ml-1",
+                className: "bg-info text-light mr-1 ml-1",
+                text: "Make Chart",
+                action: function()
+                {
+                    generate_line_chart();
+                }
+            },
+            {
+                className: "bg-success text-light mr-1 ml-1",
+                text: "Add New",
+                action: function()
+                {
+                    show_station_form();
+                }
+            },
+            {
+                className: "bg-secondary text-light mr-1 ml-1",
                 text: "Edit Selected",
                 action: function()
                 {
@@ -276,7 +347,7 @@ window.onload = function(e){
                 }
             },
             {
-                className: "bg-danger border-primary text-light mr-1 ml-1",
+                className: "bg-danger text-light mr-1 ml-1",
                 text: "Delete Selected",
                 action: function()
                 {

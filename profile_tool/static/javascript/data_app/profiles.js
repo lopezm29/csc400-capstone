@@ -89,7 +89,7 @@ function add_profile()
             "csrfmiddlewaretoken" : csrftoken,
             "survey_id" : $("#survey_id").val(),
             "section" : $("#section").val(),
-            "elevation_control" : $("#elevation_control").val(),
+            "elevation_control" : $("#elevation_control").val()
         },
         beforeSend: function()
         {
@@ -136,7 +136,7 @@ function edit_profile()
             "survey_id" : $("#survey_id").val(),
             "profile_id" : $("#edit_id").val(),
             "section" : $("#edit_section").val(),
-            "elevation_control" : $("#edit_elevation_control").val(),
+            "elevation_control" : $("#edit_elevation_control").val()
         },
         beforeSend: function()
         {

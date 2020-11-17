@@ -17,6 +17,8 @@
             <input type="hidden" id="beach_name" value="{{ beach.name }}">
             <input type="hidden" id="survey_id" value="{{ survey.id }}">
             <input type="hidden" id="survey_date" value="{{ survey.date }}">
+            <input type="hidden" id="survey_mhhw" value="{{ survey.mhhw }}">
+            <input type="hidden" id="survey_mllw" value="{{ survey.mllw }}">
             <input type="hidden" id="profile_id" value="{{ profile.id }}">
             <input type="hidden" id="profile_section" value="{{ profile.section }}">
         </div>
@@ -38,10 +40,16 @@
         </div>
     </div>
 
-    <div class="row">
+    <div id="line_chart" class="row hidden">
         <div class="col">
             <div class="card">
-                <p class="text-center">Placeholder for 3d Plotly chart</p>
+                <div class="row">
+                    <div class="col">
+                        <div id="line_chart_div">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,53 +59,88 @@
             
             <div class="card p-5">
 
-                <div id="station_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
-                            <div class="form-group w-100">
+                <div id="station_form" class="border-success" hidden>
+                    <form class="row">
+                        <div class="col-md col-xs-6">
+                            <div class="form-group">
                                 <label>Number:</label>
                                 <input type="text" id="number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group">
                                 <label>Distance:</label>
                                 <input type="text" id="distance" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">
                                 <label>Elevation:</label>
                                 <input type="text" id="z" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">
                                 <label>Comment</label>
                                 <input type="text" id="comment" class="form-control">
-
-                                <button class="btn btn-success ml-1 mr-1" onclick="add_station()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_station_form()">Cancel</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group">
+                                <button class="btn btn-success ml-1 mr-1 mt-4" onclick="add_station()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1 mt-4" onclick="hide_station_form()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                    
                 </div>
 
-                <div id="edit_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
+                <div id="edit_form" class="border-secondary" hidden>
+                    <form class="row">
+                        <div class="col-md col-xs-6">
                             <div class="form-group w-100">
                                 <label>ID:</label>
                                 <input type="text" id="edit_id" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">
                                 <label>Number:</label>
                                 <input type="text" id="edit_number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">
                                 <label>Distance:</label>
                                 <input type="text" id="edit_distance" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">
                                 <label>Elevation:</label>
                                 <input type="text" id="edit_z" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group w-100">                        
                                 <label>Comment</label>
                                 <input type="text" id="edit_comment" class="form-control">
-
-                                <button class="btn btn-success ml-1 mr-1" onclick="edit_station()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_edit_form()">Cancel</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="col-md col-xs-6">
+                            <div class="form-group text-center w-100">
+                                <button class="btn btn-success m-1" onclick="edit_station()">Submit</button>
+                                <button class="btn btn-secondary m-1" onclick="hide_edit_form()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 
-                <div class="row pt-5">
+                <!-- <div class="row pt-5">
                     <div class="col">
                         <button class="btn btn-success" onclick="show_station_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col">
@@ -118,5 +161,6 @@
 
 
 {% block scripts %}
+<script src="{% static 'javascript/data_app/line_chart.js' %}"></script>
 <script src="{% static 'javascript/data_app/stations.js' %}"></script>
 {% endblock %}
