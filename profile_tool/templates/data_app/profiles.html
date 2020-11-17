@@ -55,39 +55,51 @@
         <div class="col">
             <div class="card p-5">
 
-                <div id="profile_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
-                            <div class="form-group w-100">
+                <div id="profile_form" class="pb-3" hidden>
+                        <form class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <h5>New Profile Form</h5>
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Section:</label>
                                 <input type="text" id="section" class="form-control ml-1 mr-1">
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Elevation Control</label>
                                 <input type="text" id="elevation_control" class="form-control ml-1 mr-1">
+                            </div>
 
-                                <button class="btn btn-success ml-1 mr-1" onclick="add_profile()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_profile_form()">Cancel</button>
+                            <div class="col-md col-xs-6 form-group">
+                                <button class="btn btn-success ml-1 mr-1 mt-4" onclick="add_profile()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1 mt-4" onclick="hide_profile_form()">Cancel</button>
                             </div>
                         </form>
-                    </div>
                 </div>
 
-                <div id="edit_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
-                            <div class="form-group w-100">
+                <div id="edit_form" class="pb-3" hidden>
+                        <form class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <h5>Edit Profile Form</h5>
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>ID:</label>
                                 <input type="text" id="edit_id" class="form-control ml-1 mr-1" disabled>
+                            </div>
 
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Section:</label>
                                 <input type="text" id="edit_section" class="form-control ml-1 mr-1">
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Elevation Control</label>
                                 <input type="text" id="edit_elevation_control" class="form-control ml-1 mr-1">
+                            </div>
 
-                                <button class="btn btn-success ml-1 mr-1" onclick="edit_profile()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="edit_form()">Cancel</button>
+                            <div class="col-md col-xs-6 form-group">
+                                <button class="btn btn-success ml-1 mr-1 mt-4" onclick="edit_profile()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1 mt-4" onclick="edit_form()">Cancel</button>
                             </div>
                         </form>
-                    </div>
                 </div>
                 
                 <!-- <div class="row pt-5">

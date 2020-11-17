@@ -34,51 +34,68 @@
         <div class="col">
             <div class="card p-5">
 
-                <div id="survey_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
-                            <div class="form-group w-100">
+                <div id="survey_form" class="" hidden>
+                        <form class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <h5>New Survey Form</h5>
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Start Date:</label>
                                 <input type="date" id="start_date" class="form-control ml-1 mr-1">
-                                
+                            </div>
+
+                            <div class="col-md col-xs-6 form-group">
                                 <label>MHHW</label>
                                 <input type="text" id="mhhw" class="form-control ml-1 mr-1">
+                            </div>
+
+                            <div class="col-md col-xs-6 form-group">
                                 <label>MLLW</label>
                                 <input type="text" id="mllw" class="form-control ml-1 mr-1">
+                            </div>
 
-                                <button class="btn btn-success ml-1 mr-1" onclick="add_survey()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_survey_form()">Cancel</button>
+                            <div class="col-md col-xs-6 form-group">
+                                <button class="btn btn-success ml-1 mr-1 mt-4" onclick="add_survey()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1 mt-4" onclick="hide_survey_form()">Cancel</button>
                             </div>
                         </form>
-                    </div>
                 </div>
 
                 <div id="edit_form" class="row" hidden>
-                    <div class="col">
-                        <form class="form-inline w-100">
-                            <div class="form-group w-100">
+                        <form class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <h5>Edit Survey Form</h5>
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>ID:</label>
                                 <input type="text" id="edit_id" class="form-control ml-1 mr-1" disabled>
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>Start Date:</label>
                                 <input type="date" id="edit_start_date" class="form-control ml-1 mr-1">
+                            </div>
                                 
+                            <div class="col-md col-xs-6 form-group">
                                 <label>MHHW</label>
                                 <input type="text" id="edit_mhhw" class="form-control ml-1 mr-1">
+                            </div>
+                            <div class="col-md col-xs-6 form-group">
                                 <label>MLLW</label>
                                 <input type="text" id="edit_mllw" class="form-control ml-1 mr-1">
+                            </div>
 
-                                <button class="btn btn-success ml-1 mr-1" onclick="edit_survey()">Submit</button>
-                                <button class="btn btn-secondary ml-1 mr-1" onclick="hide_survey_form()">Cancel</button>
+                            <div class="col-md col-xs-6 form-group">
+                                <button class="btn btn-success ml-1 mr-1 mt-4" onclick="edit_survey()">Submit</button>
+                                <button class="btn btn-secondary ml-1 mr-1 mt-4" onclick="hide_survey_form()">Cancel</button>
                             </div>
                         </form>
-                    </div>
                 </div>
 
-                <div class="row pt-5">
+                <!-- <div class="row pt-5">
                     <div class="col">
                         <button class="btn btn-success" onclick="show_survey_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col">

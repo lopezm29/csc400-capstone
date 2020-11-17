@@ -239,6 +239,14 @@ window.onload = function(e){
                 text: "Export to Excel",
             },
             {
+                className: "bg-success text-light mr-1 ml-1",
+                text: "Add New",
+                action: function()
+                {
+                    show_beach_form();
+                }
+            },
+            {
                 className: "bg-secondary border-primary text-light mr-1 ml-1",
                 text: "Edit Selected",
                 action: function()
