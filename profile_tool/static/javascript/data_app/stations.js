@@ -237,7 +237,7 @@ function generate_line_chart()
                 {
                     profile_distance_list.push(parseFloat(data["stations"][key]["distance"]));
                     profile_z_list.push(parseFloat(data["stations"][key]["z"]));
-                    if("W.L." == data["stations"][key]["comment"]);
+                    if("W.L." == data["stations"][key]["comment"])
                     {
                         waterline_z = parseFloat(data["stations"][key]["z"]);
                     }
