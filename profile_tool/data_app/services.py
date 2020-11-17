@@ -9,6 +9,13 @@ def package_queryset_json(queryset):
     return packaged_dict
 
 
+def package_queryset_list(queryset):
+    packaged_list = []
+    for row in queryset:
+        packaged_list.append(row)
+    return packaged_list
+
+
 #################
 #Query functions#
 #################
@@ -70,7 +77,7 @@ def get_stations_table(profile_id):
         comment=F('station__comment'),
         true_distance=F('reduced__true_distance'),
         true_z=F('reduced__true_z')
-    ).values()
+    ).order_by('number').values()
 
     return stations
 

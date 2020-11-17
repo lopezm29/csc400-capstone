@@ -294,16 +294,16 @@ window.onload = function(e){
                 title:"Comment",
                 name:"comment"
             },
-            {
-                data:"true_distance",
-                title:"True Distance",
-                name:"true_distance"
-            },
-            {
-                data:"true_z",
-                title:"True Elevation",
-                name:"true_z"
-            },
+            // {
+            //     data:"true_distance",
+            //     title:"True Distance",
+            //     name:"true_distance"
+            // },
+            // {
+            //     data:"true_z",
+            //     title:"True Elevation",
+            //     name:"true_z"
+            // },
         ],
         "columnDefs":[{
             "className": "dt-center",

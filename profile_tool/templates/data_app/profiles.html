@@ -14,9 +14,10 @@
             <h5 class="text-light">Start Date: {{survey.start_date}}</h5>
             <input type="hidden" id="beach_id" value="{{ beach.id }}">
             <input type="hidden" id="beach_name" value="{{ beach.name }}">
-
             <input type="hidden" id="survey_id" value="{{ survey.id }}">
-            <input type="hidden" id="survey_date" value="{{ survey.start_date }}">
+            <input type="hidden" id="survey_date" value="{{ survey.date }}">
+            <input type="hidden" id="survey_mhhw" value="{{ survey.mhhw }}">
+            <input type="hidden" id="survey_mllw" value="{{ survey.mllw }}">
         </div>
         <!-- <div class="col-md-6 col-xs-6 text-right">
             <button class="btn btn-secondary">Edit Survey Instance</button>
@@ -36,10 +37,16 @@
     </div>
 
 
-    <div class="row">
+    <div id="surface_chart" class="row">
         <div class="col">
             <div class="card">
-                Placeholder for 3d Plotly chart
+                <div class="row">
+                    <div class="col">
+                        <div id="surface_chart_div">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -83,11 +90,11 @@
                     </div>
                 </div>
                 
-                <div class="row pt-5">
+                <!-- <div class="row pt-5">
                     <div class="col">
                         <button class="btn btn-success" onclick="show_profile_form()">Add New <i class="fa fa-plus fa-6" aria-hidden="true"></i></button>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col">
@@ -105,5 +112,6 @@
 
 
 {% block scripts %}
+<script src="{% static 'javascript/data_app/surface_chart.js' %}"></script>
 <script src="{% static 'javascript/data_app/profiles.js' %}"></script>
 {% endblock %}

@@ -26,6 +26,8 @@ urlpatterns=[
     path('add_profile', views.add_profile, name='add_profile'),
     path('edit_profile', views.edit_profile, name='edit_profile'),
     path('delete_profile', views.delete_profile, name='delete_profile'),
+    path('calc_profile_datums', views.calc_profile_datums, name='calc_profile_datums'),
+    path('generate_surface_chart', views.generate_surface_chart, name='generate_surface_chart'),
 
 
     path('populate_station_table', views.populate_station_table, name='populate_station_table'),

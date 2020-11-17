@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.core import serializers
+from decimal import Decimal
 from .services import *
+from .calculations import *
 
 # Create your views here.
 '''
@@ -289,27 +291,48 @@ def delete_profile(request):
 
 
 '''
+@name calc_profile_datums
+calculate beach width and volume
+return updated dict of profile info
+'''
+def calc_profile_datums(request):
+    # try:
+    profile = Profile.objects.get(id=int(request.POST['id']))
+    stations = package_queryset_list(get_stations_table(int(request.POST['id'])))
+
+    profile.width = abs(calc_beach_width(stations, Decimal(request.POST['survey_mhhw'])))
+    profile.volume = calc_beach_volume(stations, Decimal(request.POST['survey_mllw']))
+    profile.save()
+
+    result = True
+    # except:
+        # result = False
+
+    profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
+
+    return JsonResponse({'result':result, 'profiles':profiles})
+
+
+'''
 @name calculate_profile_datums
 calculate beach width and volume
 return updated dict of beach info
 '''
-def calculate_profile_datums(request):
-    pass
+def generate_surface_chart(request):
+    stations = {}
     # try:
-    #     profile = Profile.objects.get(id=int(request.POST['profile_id']))
-    #     stations = get_stations_table(int(request.POST['profile_id']))
-    #     # waterline = 
+    profiles = get_profiles_table(int(request.POST['survey_id']))
 
-    #     profile.width = calc_beach_width(stations, waterline)
-    #     profile.volume = calc_beach_volume(stations, waterline)
-
-    #     result = True
+    i = 0
+    for profile in profiles:
+        stations[str(i)] = package_queryset_json(get_stations_table(profile['id']))
+        i = i + 1
+    
+    result = True
     # except:
     #     result = False
 
-    # profiles = package_queryset_json(get_profiles_table(int(request.POST['survey_id'])))
-
-    # return JsonResponse({'result':result, 'profiles':profiles})
+    return JsonResponse({'result':result, 'stations':stations})
 
 
 '''

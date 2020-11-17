@@ -34,13 +34,13 @@
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="/surveys/{{ beach.id }}">{{ beach.name }}</a></li>
                     <li class="breadcrumb-item active"><a href="/surveys/{{ beach.id }}/profiles/{{ survey.id }}">{{ survey.start_date }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ profile.section }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">Section: {{ profile.section }}</li>
                 </ol>
             </nav>
         </div>
     </div>
 
-    <div id="line_chart" class="row hidden">
+    <div id="line_chart" class="row">
         <div class="col">
             <div class="card">
                 <div class="row">
