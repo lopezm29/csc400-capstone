@@ -34,7 +34,7 @@ function plot_surface_chart(survey_x_lists, survey_y_lists, survey_z_lists, mhhw
           l: 10,
           r: 10,
           b: 10,
-          t: 10,
+          t: 30,
         },
         scene:
         {

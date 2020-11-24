@@ -62,7 +62,7 @@ find mhhw and calculate beach width (euclidian distance from first station to th
 return beach_width
 '''
 def calc_beach_width(stations, mhhw):
-    intercept_distance, intercept_index = find_intercept(stations=stations, intercept_z=mhhw)
+    intercept_distance, penult_index = find_intercept(stations=stations, intercept_z=mhhw)
     beach_width = intercept_distance - stations[0]['distance']
     return beach_width
 
@@ -73,10 +73,10 @@ calculates area under a profile's stations using riemann sums (called beach volu
 return beach_volume
 '''
 def calc_beach_volume(stations, mllw):
-    intercept_distance, intercept_index = find_intercept(stations=stations, intercept_z=mllw)
+    intercept_distance, penult_index = find_intercept(stations=stations, intercept_z=mllw)
     beach_volume = 0
     for i in range(len(stations)-1):
-        if i == intercept_index:
+        if i == penult_index:
             left_height = stations[i]['z'] - mllw
             distance = intercept_distance - stations[i]['distance']
             triangle = (left_height * distance / 2)

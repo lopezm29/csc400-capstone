@@ -1,17 +1,18 @@
-function plot_line_chart(profile_distance_list, profile_z_list, section, title, mhhw, mllw, waterline_z)
+function plot_line_chart(profile_distance_list, profile_z_list, title, mhhw, mllw, waterline_z)
 {
-    profile_trace = create_line_chart(profile_distance_list, profile_z_list, section);
+    profile_trace = create_line_chart(profile_distance_list, profile_z_list);
     layout = create_layout(title, mhhw, mllw, waterline_z);
     Plotly.newPlot('line_chart_div', [profile_trace], layout);
 }
 
 
-function create_line_chart(profile_distance_list, profile_z_list, section)
+function create_line_chart(profile_distance_list, profile_z_list, )
 {
     var profile_trace = {
         x: profile_distance_list,
         y: profile_z_list,
         mode: 'lines+markers',
+        // mode: 'text',
         marker: 
         {
             color: 'rgb(255, 165, 0)',
@@ -21,7 +22,8 @@ function create_line_chart(profile_distance_list, profile_z_list, section)
             color: 'rgb(255, 165, 0)',
             width: 4
         },
-        name: 'Section ' + section
+        name: 'Profile',
+        text: ['Profile', 'MHHW', 'MLLW', 'Observed']
     };
 
     return profile_trace;
@@ -32,6 +34,17 @@ function create_layout(title, mhhw, mllw, waterline_z)
 {
     var layout = {
         title:title,
+        showlegend: true,
+        xaxis: 
+        {
+            title: 'Distance (m)',
+            autorange: true
+        },
+        yaxis:
+        {
+            title: 'Elevation (m)',
+            autorange: true
+        },
         shapes: [
             {
                 type: 'line',

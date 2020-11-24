@@ -246,7 +246,6 @@ function generate_line_chart()
                 plot_line_chart(
                     profile_distance_list=profile_distance_list,
                     profile_z_list=profile_z_list,
-                    section=$("#profile_section").val(),
                     title=$("#beach_name").val() + " " + $("#survey_date").val() + " " + $("#profile_section").val(),
                     mhhw=$("#survey_mhhw").val(),
                     mllw=$("#survey_mllw").val(),

@@ -391,7 +391,7 @@ return updated dict of station info
 '''
 def edit_station(request):
     try:
-        station = Station.objects.get(id=int(request.POST['id']))
+        station = Station.objects.get(id=int(request.POST['station_id']))
         station.number=int(request.POST['number'])
         station.distance=request.POST['distance']
         station.z=request.POST['z']
