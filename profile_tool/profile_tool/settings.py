@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'ebdb',
         'USER': 'admin',
         'PASSWORD': 'Southern2020!',
-        'HOST': 'aa1slcl2wyqf7yr.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
+        'HOST': 'aajzyk04qvh8tg.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
