@@ -14,7 +14,9 @@ class Survey(models.Model):
 
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
+    # section = models.CharField(max_length=3,blank=False)
     section = models.CharField(max_length=3,blank=False)
+    number = models.IntegerField(max_length=None, blank=False)
     elevation_control = models.DecimalField(decimal_places=3, max_digits=5, null=True, blank=True)
     width = models.DecimalField(decimal_places=3, max_digits=8, blank=True, null=True)
     volume = models.DecimalField(decimal_places=6, max_digits=9, blank=True, null=True)
@@ -22,7 +24,7 @@ class Profile(models.Model):
 
 class Station(models.Model):
     id = models.AutoField(primary_key=True)
-    number = models.IntegerField(max_length=None)
+    number = models.IntegerField(max_length=None, blank=False)
     distance = models.DecimalField(decimal_places=3, max_digits=8)
     z = models.DecimalField(decimal_places=3, max_digits=8)
     comment = models.CharField(max_length=200, blank=True)

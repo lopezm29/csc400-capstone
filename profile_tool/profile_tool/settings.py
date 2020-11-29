@@ -75,10 +75,21 @@ WSGI_APPLICATION = 'profile_tool.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ebdb',
+        'USER': 'admin',
+        'PASSWORD': 'Southern2020!',
+        'HOST': 'aa1slcl2wyqf7yr.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
