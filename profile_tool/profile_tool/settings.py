@@ -71,6 +71,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'profile_tool.wsgi.application'
 
+AWS_ACCESS_KEY_ID = 'AKIAJFZZRVGSGYHMA63Q'
+AWS_SECRET_ACCESS_KEY = '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'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
