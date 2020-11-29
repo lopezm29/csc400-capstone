@@ -77,23 +77,23 @@ AWS_SECRET_ACCESS_KEY = 'Pc9ZODFksHM7xuEdI+v4IPazsJoMY6Ygq+G8TJPx'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ebdb',
-        'USER': 'admin',
-        'PASSWORD': 'Southern2020!',
-        'HOST': 'aajzyk04qvh8tg.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ebdb',
+#         'USER': 'admin',
+#         'PASSWORD': 'Southern2020!',
+#         'HOST': 'aajzyk04qvh8tg.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
