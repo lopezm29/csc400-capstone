@@ -17,12 +17,11 @@ def normalize_station_data(stations, elevation_control):
 ################
 '''
 @name find_intercept
+@param list of station dictionaries (stations), elevation level to find intercept at (intercept z)
 delete station data
 return penultimate_station_index, mhhw
 '''
 def find_intercept(stations, intercept_z):
-    # stations_found = False
-    # i = 0
 
     for i in range(len(stations)-1):
         if stations[i]['z'] <= intercept_z and intercept_z >= stations[i+1]['z']:
@@ -30,34 +29,11 @@ def find_intercept(stations, intercept_z):
             b = stations[i]['z'] - (m * stations[i]['distance'])
             intercept_distance = (intercept_z-b)/m
             return intercept_distance, i
-        
-
-    # while not stations_found and i < len(stations)-1:
-    #     if i == len(stations)-1 :
-    #         i += 1
-    #     else:
-    #         if waterline <= stations[i]['z'] and waterline > stations[i + 1]['z']:
-    #             pult_index = i
-    #             station_pult = stations[i]
-    #             station_ult = stations[i+1]
-    #             stations_found = True
-    #         else:
-    #             i += 1
-    
-    # if stations_found:
-    #     m = (station_ult['z'] - station_pult['z']) / (station_ult['distance'] - station_pult['distance'])
-    #     b = station_pult['z'] / (m * station_pult['distance'])
-    #     mhhw = (waterline - b) / m
-    #     print("m: " + str(m))
-    #     print("b: " + str(b))
-    #     print("mhhw: " + str(mhhw))        
-    #     return pult_index, mhhw
-        
-    # return False
 
 
 '''
 @name calc_beach_width
+@param list of station dictionaries (stations), mean higher high water elevation (mhhw)
 find mhhw and calculate beach width (euclidian distance from first station to the horizontal at mhhw)
 return beach_width
 '''
@@ -69,7 +45,8 @@ def calc_beach_width(stations, mhhw):
 
 '''
 @name calc_beach_volume
-calculates area under a profile's stations using riemann sums (called beach volume)
+@param list of station dictionaries (stations), mean lower low water elevation (mllw)
+calculates area under a profile's curve down to mllw point using riemann sums (called beach volume)
 return beach_volume
 '''
 def calc_beach_volume(stations, mllw):
