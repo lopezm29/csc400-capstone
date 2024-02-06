@@ -86,11 +86,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ebdb',
-#         'USER': 'admin',
-#         'PASSWORD': 'Southern2020!',
-#         'HOST': 'aajq4keroivw0w.clyi8vrwv3st.us-east-2.rds.amazonaws.com',
-#         'PORT': '3306',
+#         'NAME': ~~~~,
+#         'USER': ~~~~,
+#         'PASSWORD': ~~~~,
+#         'HOST': ~~~~,
+#         'PORT': ~~~~
 #     }
 # }
 
